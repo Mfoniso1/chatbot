@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Integration Test</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #f9fafb;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        h1 {
+            color: #111827;
+        }
+
+        p {
+            color: #4b5563;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>Global Corp Website</h1>
+        <p>This is a sample website belonging to an organization. The chatbot widget you see in the bottom right corner
+            is integrated using a single <code>&lt;script&gt;</code> tag.</p>
+        <p>You can now chat with the AI which is powered by the FastAPI backend and Gemini.</p>
+    </div>
+
+    <!-- CHATBOT INTEGRATION START -->
+    <!-- In a real scenario, you would host widget.js on a CDN -->
+    <script src="./frontend/widget/dist/widget.js"></script>
+    <!-- CHATBOT INTEGRATION END -->
+</body>
+
+</html>
