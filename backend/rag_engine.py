@@ -1,10 +1,7 @@
 import os
 from dotenv import load_dotenv
 
-from langchain_google_genai import (
-    GoogleGenerativeAIEmbeddings,
-    ChatGoogleGenerativeAI
-)
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_chroma import Chroma
 from langchain_community.document_loaders import PyPDFLoader, WebBaseLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -17,14 +14,22 @@ load_dotenv()
 class RAGEngine:
     def __init__(self, db_directory="./chroma_db"):
         self.db_directory = db_directory
-
-        self.embeddings = GoogleGenerativeAIEmbeddings(
-            model="models/embedding-001"
+        
+        # Get OpenRouter API key
+        openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
+        
+        # Use OpenRouter with OpenAI-compatible API
+        self.embeddings = OpenAIEmbeddings(
+            model="text-embedding-3-small",
+            openai_api_key=openrouter_api_key,
+            openai_api_base="https://openrouter.ai/api/v1"
         )
 
-        self.llm = ChatGoogleGenerativeAI(
-            model="gemini-1.5-flash",
-            temperature=0.2
+        self.llm = ChatOpenAI(
+            model="google/gemini-2.0-flash-001",  # or any OpenRouter model
+            temperature=0.2,
+            openai_api_key=openrouter_api_key,
+            openai_api_base="https://openrouter.ai/api/v1"
         )
 
         self.vector_store = Chroma(
