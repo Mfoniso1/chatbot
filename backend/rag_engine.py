@@ -58,12 +58,20 @@ class RAGEngine:
         self._process_documents(docs)
 
     def _process_documents(self, documents):
+        # Check if documents is empty
+        if not documents:
+            raise Exception("No content found in the document. The file may be empty or unreadable.")
+        
         splitter = RecursiveCharacterTextSplitter(
             chunk_size=1000,
             chunk_overlap=100
         )
 
         chunks = splitter.split_documents(documents)
+        
+        # Check if chunks is empty
+        if not chunks or len(chunks) == 0:
+            raise Exception("No text could be extracted from the document. Please ensure the PDF contains readable text.")
         
         try:
             if self.vector_store:
